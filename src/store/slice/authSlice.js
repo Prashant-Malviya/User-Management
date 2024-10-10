@@ -1,13 +1,14 @@
+// src/store/slice/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { baseApiUrl } from '../../api/api';
 
 // Define an initial state for the authentication slice
 const initialState = {
-  user: JSON.parse(localStorage.getItem('user')) || null, 
+  user: null,
   loading: false,
   error: null,
-  token: localStorage.getItem('token') || null, 
+  token: null, 
   expirationTime: null, 
 };
 
@@ -29,16 +30,11 @@ const authSlice = createSlice({
       state.user = null; 
       state.token = null; 
       state.expirationTime = null; 
-      localStorage.removeItem('user'); 
-      localStorage.removeItem('token'); 
     },
     setUser: (state, action) => {
       state.user = action.payload.user; 
       state.token = action.payload.token; 
-      state.expirationTime = Date.now() + 3600000;
-      
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
-      localStorage.setItem('token', action.payload.token);
+      state.expirationTime = Date.now() + 3600000; 
     },
   },
   extraReducers: (builder) => {
@@ -50,12 +46,8 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false; 
         state.user = action.payload.user;
-        state.token = action.payload.token; 
+        state.token = action.payload.token;
         state.expirationTime = Date.now() + 3600000; 
-
-        // Save user and token in local storage
-        localStorage.setItem('user', JSON.stringify(action.payload.user));
-        localStorage.setItem('token', action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false; 
@@ -64,5 +56,6 @@ const authSlice = createSlice({
   },
 });
 
+
 export const { logout, setUser } = authSlice.actions;
-export default authSlice.reducer;
+export default authSlice.reducer; 

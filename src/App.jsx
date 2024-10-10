@@ -12,11 +12,18 @@ function App() {
 
   // Checking if the token is valid and not expired
   const isLoggedIn = token && Date.now() < expirationTime;
+  
+  localStorage.setItem("token", token);
+  console.log(token,'token');
+  
 
   return (
     <Router>
       <div className="mb-16">
-        <NavbarMenu />
+      {
+        isLoggedIn ? (<NavbarMenu  />): <Navigate to="/"/>
+      }
+        
       </div>
       <Routes>
         <Route path="/" element={<Login />} />

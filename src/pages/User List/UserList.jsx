@@ -17,12 +17,7 @@ const UsersList = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/');
-    } else {
       dispatch(fetchUsers(page));
-    }
   }, [page, dispatch, navigate]);
 
   const handleDelete = async (id) => {
