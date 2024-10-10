@@ -1,5 +1,7 @@
 # User Management Application with React, Redux, and Reqres API
 
+Deployed Link: - https://user-management-by-prashant-malviya.netlify.app/
+
 ## Overview
 
 This project is a User Management Application built with **React**, **Redux**, and the **Reqres API** to handle basic user management operations. It includes features such as user authentication, viewing a paginated list of users, editing, and deleting user details.
